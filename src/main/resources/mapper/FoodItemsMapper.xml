@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zwp.food.mapper.FoodItemsMapper" >
+  <resultMap id="BaseResultMap" type="zwp.food.pojo.FoodItems" >
+    <id column="food_id" property="foodId" jdbcType="VARCHAR" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_price" property="foodPrice" jdbcType="DOUBLE" />
+    <result column="food_picture" property="foodPicture" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modifi_time" property="modifiTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    food_id, food_name, food_price, food_picture, create_time, modifi_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="zwp.food.pojo.FoodItemsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from food_items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from food_items
+    where food_id = #{foodId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from food_items
+    where food_id = #{foodId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="zwp.food.pojo.FoodItemsExample" >
+    delete from food_items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="zwp.food.pojo.FoodItems" >
+    insert into food_items (food_id, food_name, food_price, 
+      food_picture, create_time, modifi_time
+      )
+    values (#{foodId,jdbcType=VARCHAR}, #{foodName,jdbcType=VARCHAR}, #{foodPrice,jdbcType=DOUBLE}, 
+      #{foodPicture,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifiTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="zwp.food.pojo.FoodItems" >
+    insert into food_items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="foodId != null" >
+        food_id,
+      </if>
+      <if test="foodName != null" >
+        food_name,
+      </if>
+      <if test="foodPrice != null" >
+        food_price,
+      </if>
+      <if test="foodPicture != null" >
+        food_picture,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiTime != null" >
+        modifi_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="foodId != null" >
+        #{foodId,jdbcType=VARCHAR},
+      </if>
+      <if test="foodName != null" >
+        #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        #{foodPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="foodPicture != null" >
+        #{foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiTime != null" >
+        #{modifiTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="zwp.food.pojo.FoodItemsExample" resultType="java.lang.Integer" >
+    select count(*) from food_items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update food_items
+    <set >
+      <if test="record.foodId != null" >
+        food_id = #{record.foodId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodName != null" >
+        food_name = #{record.foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPrice != null" >
+        food_price = #{record.foodPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.foodPicture != null" >
+        food_picture = #{record.foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifiTime != null" >
+        modifi_time = #{record.modifiTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update food_items
+    set food_id = #{record.foodId,jdbcType=VARCHAR},
+      food_name = #{record.foodName,jdbcType=VARCHAR},
+      food_price = #{record.foodPrice,jdbcType=DOUBLE},
+      food_picture = #{record.foodPicture,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modifi_time = #{record.modifiTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="zwp.food.pojo.FoodItems" >
+    update food_items
+    <set >
+      <if test="foodName != null" >
+        food_name = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        food_price = #{foodPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="foodPicture != null" >
+        food_picture = #{foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiTime != null" >
+        modifi_time = #{modifiTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where food_id = #{foodId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zwp.food.pojo.FoodItems" >
+    update food_items
+    set food_name = #{foodName,jdbcType=VARCHAR},
+      food_price = #{foodPrice,jdbcType=DOUBLE},
+      food_picture = #{foodPicture,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifi_time = #{modifiTime,jdbcType=TIMESTAMP}
+    where food_id = #{foodId,jdbcType=VARCHAR}
+  </update>
+</mapper>

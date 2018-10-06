@@ -8,7 +8,17 @@
     <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modifi_time" property="modifiTime" jdbcType="TIMESTAMP" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="findUser" parameterType="string" resultType="int" >
+    SELECT COUNT(*) FROM User_Info WHERE user_account= #{userAccount} and pass_word = #{passWord}
+  </select>
+
+
+
+
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

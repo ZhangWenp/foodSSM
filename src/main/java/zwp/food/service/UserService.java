@@ -8,4 +8,9 @@ import zwp.food.pojo.UserInfo;
 public interface UserService {
 
     UserInfo selectByPrimaryKey(String userKey);
+
+    int findUser(String userName,String passWord);
+
+
+
 }

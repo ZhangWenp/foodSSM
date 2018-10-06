@@ -15,6 +15,9 @@ public class UserInfo {
 
     private Date modifiTime;
 
+    private String userAccount;
+    private String passWord;
+
     public String getUserKey() {
         return userKey;
     }
@@ -61,5 +64,21 @@ public class UserInfo {
 
     public void setModifiTime(Date modifiTime) {
         this.modifiTime = modifiTime;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }

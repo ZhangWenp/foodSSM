@@ -1,16 +1,23 @@
 package zwp.food.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import zwp.food.pojo.UserInfo;
 import zwp.food.pojo.UserInfoExample;
 
 import java.util.List;
 
-@Repository
+
 public interface UserInfoMapper {
 
-    int findUser(String userName,String passWord);
+    /**基本数据类型：包含int,String,Date等。基本数据类型作为传参，只能传入一个。通过#{参数名}获取。
+     *复杂数据类型：包含Java实体类、Map。通过#{属性名}或#{map的keyName}获取。
+     *方法一：给参数前加 @Param 注解指定其别名
+     * 方法二：将多个值存入Map中，输入参数为 Map，用 key 表示其值
+     * @param userAccount
+     * @param passWord
+     * @return
+     */
+    int findUser(@Param(value="userAccount") String userAccount,@Param(value="passWord") String passWord);
 
 
 
